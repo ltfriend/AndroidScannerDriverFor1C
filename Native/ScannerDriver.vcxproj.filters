@@ -8,6 +8,9 @@
     <ClCompile Include="src\ConversionWchar.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\AndroidScanner.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ScannerDriver.h" />
@@ -40,6 +43,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\ConversionWchar.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AndroidScanner.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

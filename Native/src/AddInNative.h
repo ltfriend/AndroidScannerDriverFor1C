@@ -6,13 +6,7 @@
 #include "../include/AddInDefBase.h"
 #include "../include/IMemoryManager.h"
 #include "../include/mobile.h"
-
-#if defined(__APPLE__) && !defined(BUILD_DYNAMIC_LIBRARY)
-
-namespace ADD_IN_NATIVE
-{
-
-#endif //__APPLE__ && !BUILD_DYNAMIC_LIBRARY
+#include "AndroidScanner.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // class AddInNative
@@ -21,11 +15,31 @@ class AddInNative : public IComponentBase
 public:
     enum Props
     {
+        ePropDriverDescription = 0,
+        ePropErrorDescription = 1,
+        ePropTableParameters = 2,
+        ePropName = 3,
+        ePropValue = 4,
+        ePropDeviceID = 5,
+        ePropDescription = 6,
+        ePropDemoModeIsActivated = 7,
+        ePropTableActions = 8,
+        ePropActionName = 9,
         eLastProp      // Always last
     };
 
     enum Methods
     {
+        eMethGetInterfaceRevision = 0,
+        eMethGetDescription = 1,
+        eMethGetLastError = 2,
+        eMethGetParameters = 3,
+        eMethSetParameter = 4,
+        eMethOpen = 5,
+        eMethClose = 6,
+        eMethDeviceTest = 7,
+        eMethGetAdditionalActions = 8,
+        eMethDoAdditionalAction = 9,
         eLastMethod      // Always last
     };
 
@@ -62,12 +76,20 @@ public:
 
 private:
     // Attributes
+    long findName(const wchar_t* names[], const wchar_t* name, const uint32_t size) const;
+    void addError(uint32_t wcode, const wchar_t* source, const wchar_t* description, long code);
+
+    IAddInDefBaseEx* m_iConnect;
+    IMemoryManager* m_iMemory;
+
+    CAndroidScanner m_Scanner;
+
+    wchar_t m_ParamName[100];
+    wchar_t m_ParamValue[250];
+    wchar_t m_DeviceId[100];
+
+    WCHAR_T* deviceTestResultDesc;
+    bool deviceTestResult;
 };
     
-#if defined(__APPLE__) && !defined(BUILD_DYNAMIC_LIBRARY)
-
-};
-
-#endif //__APPLE__ && !BUILD_DYNAMIC_LIBRARY
-
 #endif //__ADDINNATIVE_H__

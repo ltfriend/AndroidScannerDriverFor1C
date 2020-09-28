@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="ScannerDriver.cpp" />
     <ClCompile Include="src\AddInNative.cpp" />
+    <ClCompile Include="src\AndroidScanner.cpp" />
     <ClCompile Include="src\ConversionWchar.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="ScannerDriver.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\AddInNative.h" />
+    <ClInclude Include="src\AndroidScanner.h" />
     <ClInclude Include="src\ConversionWchar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
