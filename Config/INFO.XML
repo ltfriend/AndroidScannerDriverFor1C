@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<drivers>
+	<component progid="AddIn.com_ptolkachev_AndroidScannerExtension" type="СканерШтрихкода" name="Сканеры штрихкода Android" version="1.0.1.1"/>
+</drivers>

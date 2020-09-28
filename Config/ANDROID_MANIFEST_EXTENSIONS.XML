@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!--uses-permission android:name="android.permission.WAKE_LOCK" /-->
+
+    <target xpath="/manifest" >
+    
+        <uses-feature
+            android:name="android.hardware.sensor.accelerometer"
+            android:required="true" />
+    
+    </target>
+
+</root>

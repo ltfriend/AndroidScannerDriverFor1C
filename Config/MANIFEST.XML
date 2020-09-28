@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<bundle xmlns="http://v8.1c.ru/8.2/addin/bundle" name="com_ptolkachev_AndroidScanner">
+  <component os="Android" path="libcom_ptolkachev_AndroidScanner_i386.so" codeType="c++" type="native" arch="i386"/>
+  <component os="Android" path="com_ptolkachev_AndroidScanner.apk" codeType="java" type="native" arch="i386"/>
+  <component os="Android" path="libcom_ptolkachev_AndroidScanner_x64.so" codeType="c++" type="native" arch="x86_64"/>
+  <component os="Android" path="com_ptolkachev_AndroidScanner.apk" codeType="java" type="native" arch="x86_64"/>
+  <component os="Android" path="libcom_ptolkachev_AndroidScanner_ARM.so" codeType="c++" type="native" arch="ARM"/>
+  <component os="Android" path="com_ptolkachev_AndroidScanner.apk" codeType="java" type="native" arch="ARM"/>
+  <component os="Android" path="libcom_ptolkachev_AndroidScanner_ARM64.so" codeType="c++" type="native" arch="ARM64"/>
+  <component os="Android" path="com_ptolkachev_AndroidScanner.apk" codeType="java" type="native" arch="ARM64"/>
+</bundle>
