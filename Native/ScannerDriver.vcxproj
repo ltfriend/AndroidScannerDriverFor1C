@@ -153,6 +153,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="jni\jnienv.cpp" />
     <ClCompile Include="ScannerDriver.cpp" />
     <ClCompile Include="src\AddInNative.cpp" />
     <ClCompile Include="src\AndroidScanner.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="include\IMemoryManager.h" />
     <ClInclude Include="include\mobile.h" />
     <ClInclude Include="include\types.h" />
+    <ClInclude Include="jni\jnienv.h" />
     <ClInclude Include="ScannerDriver.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\AddInNative.h" />

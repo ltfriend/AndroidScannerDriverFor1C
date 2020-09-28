@@ -11,6 +11,9 @@
     <ClCompile Include="src\AndroidScanner.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="jni\jnienv.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ScannerDriver.h" />
@@ -48,6 +51,9 @@
     <ClInclude Include="src\AndroidScanner.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="jni\jnienv.h">
+      <Filter>jni</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
@@ -55,6 +61,9 @@
     </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{c2b39ea1-3c13-40fd-ae2b-5190f3f79428}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni">
+      <UniqueIdentifier>{222b340f-6e22-4f00-9007-9d744fbffdea}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

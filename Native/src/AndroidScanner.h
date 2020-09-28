@@ -3,16 +3,20 @@
 #define __ANDROIDSCANNER_H__
 
 #include "ConversionWchar.h"
+#include "../include/AddInDefBase.h"
+#include "../include/IAndroidComponentHelper.h"
+#include "../include/IMemoryManager.h"
 #include "../include/mobile.h"
-
-class IAddInDefBaseEx;
-class IMemoryManager;
+#include <string>
 
 class CAndroidScanner
 {
 public:
 	CAndroidScanner();
 	~CAndroidScanner();
+
+	void SetIConnect(IAddInDefBaseEx* piConnect);
+	void SetIMemory(IMemoryManager* piMemory);
 
 	wchar_t* GetDescription();
 
@@ -32,11 +36,23 @@ public:
 	bool DeviceTest();
 	wchar_t* GetDeviceTestResult();
 
+	void SendReceivedBarcode(std::wstring barcode);
+
 private:
-	wchar_t m_ActionName[250];
-	wchar_t m_ExtraData[250];
+	jclass cc;
+	jobject obj;
+	IAddInDefBaseEx* cnn;
+	IMemoryManager* mem;
+
+	WCHAR_T* m_pwstrActionName;
+	WCHAR_T* m_pwstrExtraData;
 
 	wchar_t* m_TestResult = nullptr;
+	bool isOpen;
+
+	IAndroidComponentHelper* helper;
+	jmethodID methodID_open;
+	jmethodID methodID_close;
 };
 
 #endif

@@ -119,6 +119,10 @@ AddInNative::~AddInNative()
 bool AddInNative::Init(void* pConnection)
 {
     m_iConnect = (IAddInDefBaseEx*)pConnection;
+
+    if (m_iConnect)
+        m_Scanner.SetIConnect(m_iConnect);
+
     return m_iConnect != nullptr;
 }
 //---------------------------------------------------------------------------//
@@ -523,6 +527,10 @@ void AddInNative::SetLocale(const WCHAR_T* loc)
 bool AddInNative::setMemManager(void* mem)
 {
     m_iMemory = (IMemoryManager*)mem;
+
+    if (m_iMemory)
+        m_Scanner.SetIMemory(m_iMemory);
+
     return m_iMemory != 0;
 }
 //---------------------------------------------------------------------------//
