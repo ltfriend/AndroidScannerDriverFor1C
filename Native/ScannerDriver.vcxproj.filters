@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ScannerDriver.cpp" />
+    <ClCompile Include="src\AddInNative.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ConversionWchar.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ScannerDriver.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="include\AddInDefBase.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\addinlib.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\com.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ComponentBase.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IAndroidComponentHelper.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\IMemoryManager.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\mobile.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\types.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AddInNative.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ConversionWchar.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{bec62d74-beba-4c42-a9ab-063a1931f2a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{c2b39ea1-3c13-40fd-ae2b-5190f3f79428}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
