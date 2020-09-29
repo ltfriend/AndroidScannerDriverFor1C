@@ -153,13 +153,16 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddInNative.cpp" />
+    <ClCompile Include="AndroidScanner.cpp" />
+    <ClCompile Include="ConversionWchar.cpp" />
     <ClCompile Include="jni\jnienv.cpp" />
     <ClCompile Include="ScannerDriver.cpp" />
-    <ClCompile Include="src\AddInNative.cpp" />
-    <ClCompile Include="src\AndroidScanner.cpp" />
-    <ClCompile Include="src\ConversionWchar.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddInNative.h" />
+    <ClInclude Include="AndroidScanner.h" />
+    <ClInclude Include="ConversionWchar.h" />
     <ClInclude Include="include\AddInDefBase.h" />
     <ClInclude Include="include\addinlib.h" />
     <ClInclude Include="include\com.h" />
@@ -171,9 +174,6 @@
     <ClInclude Include="jni\jnienv.h" />
     <ClInclude Include="ScannerDriver.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="src\AddInNative.h" />
-    <ClInclude Include="src\AndroidScanner.h" />
-    <ClInclude Include="src\ConversionWchar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -9,7 +9,7 @@ void trace(const char* format, ...)
 {
     va_list args;
     va_start(args, format);
-    __android_log_vprint(ANDROID_LOG_INFO, "StepCounterNative", format, args);
+    __android_log_vprint(ANDROID_LOG_INFO, "AndroidScannerNative", format, args);
     va_end(args);
 }
 

@@ -8,7 +8,7 @@ import android.content.IntentFilter;
 
 public class Scanner implements Runnable {
     // in C/C++ code the function will have name
-    // Java_com_ptolkachev_AndroidScanner_Scanner_OnBarcodeReceived
+    // Java_com_ptolkachev_androidscanner_Scanner_OnBarcodeReceived
     static native void OnBarcodeReceived(long pObject, String barcode);
 
     Activity mActivity;
@@ -23,7 +23,8 @@ public class Scanner implements Runnable {
         mReceiver = null;
     }
 
-    public void show() {
+    public void show()
+    {
         mActivity.runOnUiThread(this);
     }
 

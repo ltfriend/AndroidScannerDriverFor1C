@@ -4,20 +4,6 @@
 #include <stdio.h>
 #include <wchar.h>
 
-static const wchar_t* g_PropNames[] =
-{
-    L"DriverDescription",
-    L"ErrorDescription",
-    L"TableParameters",
-    L"Name",
-    L"Value",
-    L"DeviceID",
-    L"Description",
-    L"DemoModeIsActivated",
-    L"TableActions",
-    L"ActionName"
-};
-
 static const wchar_t* g_MethodNames[] =
 {
     L"GetInterfaceRevision",
@@ -30,20 +16,6 @@ static const wchar_t* g_MethodNames[] =
     L"DeviceTest",
     L"GetAdditionalActions",
     L"DoAdditionalAction"
-};
-
-static const wchar_t* g_PropNamesRu[] =
-{
-    L"ОписаниеДрайвера",
-    L"ОписаниеОшибки",
-    L"ТаблицаПараметров",
-    L"Имя",
-    L"Значение",
-    L"ИДУстройства",
-    L"Описание",
-    L"АктивированДемоРежим",
-    L"ТаблицаДействий",
-    L"ИмяДействия"
 };
 
 static const wchar_t* g_MethodNamesRu[] =
@@ -64,9 +36,7 @@ static const wchar_t g_ComponentNameType[] = L"com_ptolkachev_AndroidScannerExte
 static const wchar_t g_kClassNames[] = L"AndroidScanner";
 static WcharWrapper s_kClassNames(g_kClassNames);
 
-// This component supports 2.1 version
-const long g_VersionAddIn = 2100;
-
+const long g_VersionAddIn = 1000;
 const long g_InterfaceRev = 3003; // Version 3.3
 
 static AppCapabilities g_capabilities = eAppCapabilitiesInvalid;
@@ -161,185 +131,22 @@ long AddInNative::GetNProps()
 //---------------------------------------------------------------------------//
 long AddInNative::FindProp(const WCHAR_T* wsPropName)
 { 
-    long plPropNum = -1;
-    wchar_t* propName = 0;
-    convFromShortWchar(&propName, wsPropName);
-
-    plPropNum = findName(g_PropNames, propName, eLastProp);
-
-    if (plPropNum == -1)
-        plPropNum = findName(g_PropNamesRu, propName, eLastProp);
-
-    delete[] propName;
-
-    return plPropNum;
+    return -1;
 }
 //---------------------------------------------------------------------------//
 const WCHAR_T* AddInNative::GetPropName(long lPropNum, long lPropAlias)
 { 
-    if (lPropNum >= eLastProp)
-        return NULL;
-
-    wchar_t* wsCurrentName = NULL;
-    WCHAR_T* wsPropName = NULL;
-
-    switch (lPropAlias)
-    {
-    case 0: // First language (english)
-        wsCurrentName = (wchar_t*)g_PropNames[lPropNum];
-        break;
-    case 1: // Second language (local)
-        wsCurrentName = (wchar_t*)g_PropNamesRu[lPropNum];
-        break;
-    default:
-        return 0;
-    }
-
-    uint32_t iActualSize = static_cast<uint32_t>(wcslen(wsCurrentName) + 1);
-
-    if (m_iMemory && wsCurrentName)
-    {
-        if (m_iMemory->AllocMemory((void**)&wsPropName, iActualSize * sizeof(WCHAR_T)))
-            convToShortWchar(&wsPropName, wsCurrentName, iActualSize);
-    }
-
-    return wsPropName;
+    return NULL;
 }
 //---------------------------------------------------------------------------//
 bool AddInNative::GetPropVal(const long lPropNum, tVariant* pvarPropVal)
 { 
-    switch (lPropNum)
-    {
-    case ePropDriverDescription:
-    {
-        wchar_t* description = m_Scanner.GetDescription();
-        uint32_t iActualSize = static_cast<uint32_t>(wcslen(description) + 1);
-        if (m_iMemory)
-        {
-            if (m_iMemory->AllocMemory((void**)&pvarPropVal->pwstrVal, iActualSize * sizeof(WCHAR_T)))
-            {
-                convToShortWchar(&pvarPropVal->pwstrVal, description, iActualSize);
-                pvarPropVal->wstrLen = iActualSize - 1;
-                TV_VT(pvarPropVal) = VTYPE_PWSTR;
-            }
-        }
-        break;
-    }
-    case ePropErrorDescription:
-    {
-        wchar_t* description = m_Scanner.GetLastErrorDesc();
-        uint32_t iActualSize = static_cast<uint32_t>(wcslen(description) + 1);
-        if (m_iMemory)
-        {
-            if (m_iMemory->AllocMemory((void**)&pvarPropVal->pwstrVal, iActualSize * sizeof(WCHAR_T)))
-            {
-                convToShortWchar(&pvarPropVal->pwstrVal, description, iActualSize);
-                pvarPropVal->wstrLen = iActualSize - 1;
-                TV_VT(pvarPropVal) = VTYPE_PWSTR;
-            }
-        }
-        break;
-    }
-    case ePropTableParameters:
-    {
-        wchar_t* parameters = m_Scanner.GetParameters();
-        uint32_t iActualSize = static_cast<uint32_t>(wcslen(parameters) + 1);
-        if (m_iMemory)
-        {
-            if (m_iMemory->AllocMemory((void**)&pvarPropVal->pwstrVal, iActualSize * sizeof(WCHAR_T)))
-            {
-                convToShortWchar(&pvarPropVal->pwstrVal, parameters, iActualSize);
-                pvarPropVal->wstrLen = iActualSize - 1;
-                TV_VT(pvarPropVal) = VTYPE_PWSTR;
-            }
-        }
-        break;
-    }
-    case ePropDeviceID:
-    {
-        wchar_t* deviceId = m_Scanner.GetDeviceId();
-        uint32_t iActualSize = static_cast<uint32_t>(wcslen(deviceId) + 1);
-        if (m_iMemory)
-        {
-            if (m_iMemory->AllocMemory((void**)&pvarPropVal->pwstrVal, iActualSize * sizeof(WCHAR_T)))
-            {
-                convToShortWchar(&pvarPropVal->pwstrVal, deviceId, iActualSize);
-                pvarPropVal->wstrLen = iActualSize - 1;
-                TV_VT(pvarPropVal) = VTYPE_PWSTR;
-            }
-        }
-        break;
-    }
-    case ePropDescription:
-    {
-        wchar_t* deviceTestResult = m_Scanner.GetDeviceTestResult();
-        uint32_t iActualSize = static_cast<uint32_t>(wcslen(deviceTestResult) + 1);
-        if (m_iMemory)
-        {
-            if (m_iMemory->AllocMemory((void**)&pvarPropVal->pwstrVal, iActualSize * sizeof(WCHAR_T)))
-            {
-                convToShortWchar(&pvarPropVal->pwstrVal, deviceTestResult, iActualSize);
-                pvarPropVal->wstrLen = iActualSize - 1;
-                TV_VT(pvarPropVal) = VTYPE_PWSTR;
-            }
-        }
-        break;
-    }
-    case ePropDemoModeIsActivated:
-        TV_VT(pvarPropVal) = VTYPE_BOOL;
-        TV_BOOL(pvarPropVal) = m_Scanner.IsDemoMode();
-        break;
-    case ePropTableActions:
-    {
-        wchar_t* tableActions = L"";
-        uint32_t iActualSize = static_cast<uint32_t>(wcslen(tableActions) + 1);
-        if (m_iMemory)
-        {
-            if (m_iMemory->AllocMemory((void**)&pvarPropVal->pwstrVal, iActualSize * sizeof(WCHAR_T)))
-            {
-                convToShortWchar(&pvarPropVal->pwstrVal, tableActions, iActualSize);
-                pvarPropVal->wstrLen = iActualSize - 1;
-                TV_VT(pvarPropVal) = VTYPE_PWSTR;
-            }
-        }
-        break;
-    }
-    default:
-        return false;
-    }
-    return true;
+    return false;
 }
 //---------------------------------------------------------------------------//
 bool AddInNative::SetPropVal(const long lPropNum, tVariant* varPropVal)
 { 
-    switch (lPropNum)
-    {
-    case ePropName:
-        if (varPropVal->vt == VTYPE_PWSTR)
-        {
-            wchar_t* paramName = m_ParamName;
-            convFromShortWchar(&paramName, varPropVal->pwstrVal);
-        }
-        break;
-    case ePropValue:
-        if (varPropVal->vt == VTYPE_PWSTR)
-        {
-            wchar_t* paramValue = m_ParamValue;
-            convFromShortWchar(&paramValue, varPropVal->pwstrVal);
-        }
-        break;
-    case ePropDeviceID:
-        if (varPropVal->vt == VTYPE_PWSTR)
-        {
-            wchar_t* deviceId = m_DeviceId;
-            convFromShortWchar(&deviceId, varPropVal->pwstrVal);
-        }
-    case ePropActionName:
-        break;
-    default:
-        return false;
-    }
-    return true;
+    return false;
 }
 //---------------------------------------------------------------------------//
 bool AddInNative::IsPropReadable(const long lPropNum)
@@ -349,17 +156,6 @@ bool AddInNative::IsPropReadable(const long lPropNum)
 //---------------------------------------------------------------------------//
 bool AddInNative::IsPropWritable(const long lPropNum)
 {
-    switch (lPropNum)
-    {
-    case ePropDriverDescription:
-    case ePropErrorDescription:
-    case ePropTableParameters:
-    case ePropDeviceID:
-    case ePropDescription:
-    case ePropDemoModeIsActivated:
-    case ePropTableActions:
-        return true;
-    }
     return false;
 }
 //---------------------------------------------------------------------------//
@@ -479,24 +275,100 @@ bool AddInNative::CallAsFunc(const long lMethodNum,
         TV_I4(pvarRetValue) = static_cast<int32_t>(g_InterfaceRev);
         return true;
     case eMethGetDescription:
+        if (m_iMemory)
+        {
+            WCHAR_T* pwstrDesc = m_Scanner.GetDescription();
+            uint32_t  iActualSize = getLenShortWcharStr(pwstrDesc) + 1;
+            tVariant& pParam0 = paParams[0];
+            if (m_iMemory->AllocMemory((void**)&pParam0.pwstrVal, iActualSize * sizeof(WCHAR_T)))
+            {
+                memcpy(pParam0.pwstrVal, pwstrDesc, iActualSize * sizeof(WCHAR_T));
+                pParam0.wstrLen = iActualSize - 1;
+                TV_VT(&pParam0) = VTYPE_PWSTR;
+            }
+        }
+
         TV_VT(pvarRetValue) = VTYPE_BOOL;
         TV_BOOL(pvarRetValue) = true;
         return true;
     case eMethGetLastError:
+        if (m_iMemory)
+        {
+            tVariant& pParam0 = paParams[0];
+
+            WCHAR_T* pwstrLastError = m_Scanner.GetLastErrorDesc();
+            if (pwstrLastError)
+            {
+                uint32_t iActualSize = getLenShortWcharStr(pwstrLastError) + 1;
+                if (m_iMemory->AllocMemory((void**)&pParam0.pwstrVal, iActualSize * sizeof(WCHAR_T)))
+                {
+                    memcpy(pParam0.pwstrVal, pwstrLastError, iActualSize * sizeof(WCHAR_T));
+                    pParam0.wstrLen = iActualSize - 1;
+                    TV_VT(&pParam0) = VTYPE_PWSTR;
+                }
+            }
+        }
+
         TV_VT(pvarRetValue) = VTYPE_I4;
         TV_I4(pvarRetValue) = m_Scanner.GetLastErrorCode();
         return true;
     case eMethGetParameters:
+        if (m_iMemory)
+        {
+            tVariant& pParam0 = paParams[0];
+            WCHAR_T* pwstrParams = m_Scanner.GetParameters();
+            uint32_t iActualSize = getLenShortWcharStr(pwstrParams) + 1;
+            if (m_iMemory->AllocMemory((void**)&pParam0.pwstrVal, iActualSize * sizeof(WCHAR_T)))
+            {
+                memcpy(pParam0.pwstrVal, pwstrParams, iActualSize * sizeof(WCHAR_T));
+                pParam0.wstrLen = iActualSize - 1;
+                TV_VT(&pParam0) = VTYPE_PWSTR;
+            }
+        }
+
         TV_VT(pvarRetValue) = VTYPE_BOOL;
         TV_BOOL(pvarRetValue) = true;
         return true;
     case eMethSetParameter:
-        m_Scanner.SetParameter(m_ParamName, m_ParamValue);
+    {
+        wchar_t* pwstrParam0 = 0;
+        wchar_t* pwstrParam1 = 0;
+
+        tVariant& pParam0 = paParams[0];
+        if (pParam0.wstrLen > 0)
+            convFromShortWchar(&pwstrParam0, pParam0.pwstrVal);
+
+        tVariant& pParam1 = paParams[1];
+        if (pParam1.wstrLen > 0)
+            convFromShortWchar(&pwstrParam1, pParam1.pwstrVal);
+
+        m_Scanner.SetParameter(pwstrParam0, pwstrParam1);
+
+        if (pwstrParam0)
+            delete pwstrParam0;
+        if (pwstrParam1)
+            delete pwstrParam1;
+
         TV_VT(pvarRetValue) = VTYPE_BOOL;
         TV_BOOL(pvarRetValue) = true;
         return true;
+    }
     case eMethOpen:
         m_Scanner.Open();
+
+        if (m_iMemory)
+        {
+            tVariant& pParam0 = paParams[0];
+            WCHAR_T* pwstrDeviceId = m_Scanner.GetDeviceId();
+            uint32_t iActualSize = getLenShortWcharStr(pwstrDeviceId) + 1;
+            if (m_iMemory->AllocMemory((void**)&pParam0.pwstrVal, iActualSize * sizeof(WCHAR_T)))
+            {
+                memcpy(pParam0.pwstrVal, pwstrDeviceId, iActualSize * sizeof(WCHAR_T));
+                pParam0.wstrLen = iActualSize - 1;
+                TV_VT(&pParam0) = VTYPE_PWSTR;
+            }
+        }
+
         TV_VT(pvarRetValue) = VTYPE_BOOL;
         TV_BOOL(pvarRetValue) = true;
         return true;
@@ -507,7 +379,7 @@ bool AddInNative::CallAsFunc(const long lMethodNum,
         return true;
     case eMethDeviceTest:
         TV_VT(pvarRetValue) = VTYPE_BOOL;
-        TV_BOOL(pvarRetValue) = m_Scanner.DeviceTest();
+        TV_BOOL(pvarRetValue) = true;
         return true;
     case eMethGetAdditionalActions:
     case eMethDoAdditionalAction:

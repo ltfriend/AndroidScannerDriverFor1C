@@ -276,3 +276,6 @@ __pycache__/
 /captures
 .externalNativeBuild
 .cxx
+
+#Other
+[Pp]ackage/

@@ -2,10 +2,10 @@
 #ifndef __ADDINNATIVE_H__
 #define __ADDINNATIVE_H__
 
-#include "../include/ComponentBase.h"
-#include "../include/AddInDefBase.h"
-#include "../include/IMemoryManager.h"
-#include "../include/mobile.h"
+#include "include/ComponentBase.h"
+#include "include/AddInDefBase.h"
+#include "include/IMemoryManager.h"
+#include "include/mobile.h"
 #include "AndroidScanner.h"
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -15,16 +15,6 @@ class AddInNative : public IComponentBase
 public:
     enum Props
     {
-        ePropDriverDescription = 0,
-        ePropErrorDescription = 1,
-        ePropTableParameters = 2,
-        ePropName = 3,
-        ePropValue = 4,
-        ePropDeviceID = 5,
-        ePropDescription = 6,
-        ePropDemoModeIsActivated = 7,
-        ePropTableActions = 8,
-        ePropActionName = 9,
         eLastProp      // Always last
     };
 
@@ -76,20 +66,13 @@ public:
 
 private:
     // Attributes
-    long findName(const wchar_t* names[], const wchar_t* name, const uint32_t size) const;
-    void addError(uint32_t wcode, const wchar_t* source, const wchar_t* description, long code);
-
     IAddInDefBaseEx* m_iConnect;
     IMemoryManager* m_iMemory;
 
     CAndroidScanner m_Scanner;
 
-    wchar_t m_ParamName[100];
-    wchar_t m_ParamValue[250];
-    wchar_t m_DeviceId[100];
-
-    WCHAR_T* deviceTestResultDesc;
-    bool deviceTestResult;
+    long findName(const wchar_t* names[], const wchar_t* name, const uint32_t size) const;
+    void addError(uint32_t wcode, const wchar_t* source, const wchar_t* description, long code);
 };
     
 #endif //__ADDINNATIVE_H__

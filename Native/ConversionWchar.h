@@ -2,7 +2,7 @@
 #ifndef __CONVERSIONWCHAR_H__
 #define __CONVERSIONWCHAR_H__
 
-#include "../include/types.h"
+#include "include/types.h"
 
 #if defined(__APPLE__) && !defined(BUILD_DYNAMIC_LIBRARY)
 

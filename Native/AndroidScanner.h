@@ -3,10 +3,10 @@
 #define __ANDROIDSCANNER_H__
 
 #include "ConversionWchar.h"
-#include "../include/AddInDefBase.h"
-#include "../include/IAndroidComponentHelper.h"
-#include "../include/IMemoryManager.h"
-#include "../include/mobile.h"
+#include "include/AddInDefBase.h"
+#include "include/IAndroidComponentHelper.h"
+#include "include/IMemoryManager.h"
+#include "include/mobile.h"
 #include <string>
 
 class CAndroidScanner
@@ -18,23 +18,20 @@ public:
 	void SetIConnect(IAddInDefBaseEx* piConnect);
 	void SetIMemory(IMemoryManager* piMemory);
 
-	wchar_t* GetDescription();
+	WCHAR_T* GetDescription();
 
 	uint32_t GetLastErrorCode();
-	wchar_t* GetLastErrorDesc();
+	WCHAR_T* GetLastErrorDesc();
 
-	wchar_t* GetParameters();
+	WCHAR_T* GetParameters();
 	bool SetParameter(wchar_t* name, wchar_t* value);
 
 	void Open();
 	void Close();
 
-	wchar_t* GetDeviceId();
-	wchar_t* GetDeviceDesc();
+	WCHAR_T* GetDeviceId();
+	WCHAR_T* GetDeviceDesc();
 	bool IsDemoMode();
-
-	bool DeviceTest();
-	wchar_t* GetDeviceTestResult();
 
 	void SendReceivedBarcode(std::wstring barcode);
 
@@ -46,8 +43,12 @@ private:
 
 	WCHAR_T* m_pwstrActionName;
 	WCHAR_T* m_pwstrExtraData;
+	WCHAR_T* m_pwstrDescription;
+	WCHAR_T* m_pwstrLastErrorDesc;
+	WCHAR_T* m_pwstrParameters;
+	WCHAR_T* m_pwstrDeviceId;
+	WCHAR_T* m_pwstrDeviceDesc;
 
-	wchar_t* m_TestResult = nullptr;
 	bool isOpen;
 
 	IAndroidComponentHelper* helper;

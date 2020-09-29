@@ -1,7 +1,7 @@
 
 #include "AndroidScanner.h"
 #include "ConversionWchar.h"
-#include "../jni/jnienv.h"
+#include "jni/jnienv.h"
 #include <jni.h>
 #include <wchar.h>
 
@@ -24,7 +24,7 @@ std::wstring jstring2wstring(JNIEnv* jenv, jstring aStr)
 	return result;
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_ptolkachev_AndroidScanner_Scanner_OnBarcodeReceived(
+extern "C" JNIEXPORT void JNICALL Java_com_ptolkachev_androidscanner_Scanner_OnBarcodeReceived(
 	JNIEnv * jenv, jclass aClass, jlong pObject, jstring aBarcode)
 {
 	CAndroidScanner* scanner = (CAndroidScanner*)pObject;
@@ -36,8 +36,33 @@ extern "C" JNIEXPORT void JNICALL Java_com_ptolkachev_AndroidScanner_Scanner_OnB
 	}
 }
 
-CAndroidScanner::CAndroidScanner() : cc(0), obj(0), m_pwstrActionName(0), m_pwstrExtraData(0), isOpen(false)
+CAndroidScanner::CAndroidScanner() :
+	cc(0),
+	obj(0),
+	cnn(0),
+	mem(0),
+	m_pwstrActionName(0),
+	m_pwstrExtraData(0),
+	m_pwstrLastErrorDesc(0),
+	isOpen(false)
 {
+	wchar_t description[] =
+		L"<?xml version=\"1.0\" encoding=\"UTF-8\"?><DriverDescription Name=\"Сканеры штрихкода Android\" Description=\"Сканеры штрихкода Android\" EquipmentType=\"СканерШтрихкода\" IntegrationComponent=\"false\" MainDriverInstalled=\"false\" DriverVersion=\"1.0.1.1\" IntegrationComponentVersion=\"1.0\" DownloadURL=\"\" LogIsEnabled=\"false\" LogPath = \"\"/>";
+	m_pwstrDescription = 0;
+	convToShortWchar(&m_pwstrDescription, description);
+
+	wchar_t parameters[] =
+		L"<Settings><Group Caption=\"Параметры подключения\"><Parameter Name=\"ActionName\" Caption=\"Action Name\" TypeValue=\"String\" DefaultValue=\"\"/><Parameter Name=\"ExtraData\" Caption=\"Extra Data\" TypeValue=\"String\" DefaultValue=\"\"/></Group></Settings>";
+	m_pwstrParameters = 0;
+	convToShortWchar(&m_pwstrParameters, parameters);
+
+	wchar_t deviceId[] = L"com_ptolkachev_AndroidScanner";
+	m_pwstrDeviceId = 0;
+	convToShortWchar(&m_pwstrDeviceId, deviceId);
+
+	wchar_t deviceDesc[] = L"Android Scanner";
+	m_pwstrDeviceDesc = 0;
+	convToShortWchar(&m_pwstrDeviceDesc, deviceDesc);
 }
 
 CAndroidScanner::~CAndroidScanner()
@@ -49,6 +74,13 @@ CAndroidScanner::~CAndroidScanner()
 		delete m_pwstrActionName;
 	if (m_pwstrExtraData)
 		delete m_pwstrExtraData;
+
+	delete m_pwstrDescription;
+	if (m_pwstrLastErrorDesc)
+		delete m_pwstrLastErrorDesc;
+	delete m_pwstrParameters;
+	delete m_pwstrDeviceId;
+	delete m_pwstrDeviceDesc;
 
 	JNIEnv* jenv = getJniEnv();
 	jenv->DeleteGlobalRef(obj);
@@ -92,8 +124,8 @@ void CAndroidScanner::SetIConnect(IAddInDefBaseEx* piConnect)
 				jenv->CallVoidMethod(obj, methodID_show);
 
 				// Methods
-				methodID_open = jenv->GetMethodID(cc, "open", "(Ljava/lang/String;Ljava/lang/String;)V");
-				methodID_close = jenv->GetMethodID(cc, "close", "()V");
+				methodID_open = jenv->GetMethodID(cc, "start", "(Ljava/lang/String;Ljava/lang/String;)V");
+				methodID_close = jenv->GetMethodID(cc, "stop", "()V");
 			}
 		}
 	}
@@ -104,9 +136,9 @@ void CAndroidScanner::SetIMemory(IMemoryManager* piMemory)
 	mem = piMemory;
 }
 
-wchar_t* CAndroidScanner::GetDescription()
+WCHAR_T* CAndroidScanner::GetDescription()
 {
-	return L"<?xml version=\"1.0\" encoding=\"UTF-8\"?><DriverDescription Name=\"Сканеры штрихкода Android\" Description=\"Сканеры штрихкода Android\" EquipmentType=\"СканерШтрихкода\" IntegrationComponent=\"false\" MainDriverInstalled=\"false\" DriverVersion=\"1.0\" IntegrationComponentVersion=\"1.0\" DownloadURL=\"\" LogIsEnabled=\"false\" LogPath = \"\"/>";
+	return m_pwstrDescription;
 }
 
 uint32_t CAndroidScanner::GetLastErrorCode()
@@ -114,18 +146,21 @@ uint32_t CAndroidScanner::GetLastErrorCode()
 	return 0L;
 }
 
-wchar_t* CAndroidScanner::GetLastErrorDesc()
+WCHAR_T* CAndroidScanner::GetLastErrorDesc()
 {
-	return L"";
+	return m_pwstrLastErrorDesc;
 }
 
-wchar_t* CAndroidScanner::GetParameters()
+WCHAR_T* CAndroidScanner::GetParameters()
 {
-	return L"<Settings><Group Caption=\"Параметры подключения\"><Parameter Name=\"ActionName\" Caption=\"Action Name\" TypeValue=\"String\" DefaultValue=\"\"/><Parameter Name=\"ExtraData\" Caption=\"Extra Data\" TypeValue=\"String\" DefaultValue=\"\"/></Group></Settings>";
+	return m_pwstrParameters;
 }
 
 bool CAndroidScanner::SetParameter(wchar_t* name, wchar_t* value)
 {
+	if (!name)
+		return false;
+
 	if (wcscmp(name, L"ActionName") == 0)
 	{
 		if (m_pwstrActionName)
@@ -147,19 +182,22 @@ bool CAndroidScanner::SetParameter(wchar_t* name, wchar_t* value)
 		convToShortWchar(&m_pwstrExtraData, value);
 	}
 	else
+	{
 		return false;
+	}
 
 	return true;
 }
 
 void CAndroidScanner::Open()
 {
+	//TODO: Проверять параметры на NULL.
 	JNIEnv* jenv = getJniEnv();
 
 	jstring actionName = jenv->NewString(m_pwstrActionName, getLenShortWcharStr(m_pwstrActionName));
 	jstring extraData = jenv->NewString(m_pwstrExtraData, getLenShortWcharStr(m_pwstrExtraData));
 
-	jenv->CallVoidMethod(cc, methodID_open, actionName, extraData);
+	jenv->CallVoidMethod(obj, methodID_open, actionName, extraData);
 
 	isOpen = true;
 }
@@ -167,19 +205,19 @@ void CAndroidScanner::Open()
 void CAndroidScanner::Close()
 {
 	JNIEnv* jenv = getJniEnv();
-	jenv->CallVoidMethod(cc, methodID_close);
+	jenv->CallVoidMethod(obj, methodID_close);
 
 	isOpen = false;
 }
 
-wchar_t* CAndroidScanner::GetDeviceId()
+WCHAR_T* CAndroidScanner::GetDeviceId()
 {
-	return L"com_ptolkachev_androidscanner";
+	return m_pwstrDeviceId;
 }
 
-wchar_t* CAndroidScanner::GetDeviceDesc()
+WCHAR_T* CAndroidScanner::GetDeviceDesc()
 {
-	return L"Android Scanner";
+	return m_pwstrDeviceDesc;
 }
 
 bool CAndroidScanner::IsDemoMode()
@@ -187,26 +225,15 @@ bool CAndroidScanner::IsDemoMode()
 	return false;
 }
 
-bool CAndroidScanner::DeviceTest()
-{
-	m_TestResult = GetDeviceDesc();
-	return true;
-}
-
-wchar_t* CAndroidScanner::GetDeviceTestResult()
-{
-	return m_TestResult;
-}
-
 void CAndroidScanner::SendReceivedBarcode(std::wstring barcode)
 {
 	if (cnn && mem)
 	{
 		WCHAR_T* pwstrDeviceId = NULL;
-		uint32_t iActualSize = static_cast<uint32_t>(wcslen(GetDeviceId()) + 1);
+		uint32_t iActualSize = static_cast<uint32_t>(getLenShortWcharStr(m_pwstrDeviceId) + 1);
 		if (!mem->AllocMemory((void**)&pwstrDeviceId, iActualSize * sizeof(WCHAR_T)))
 			return;
-		convToShortWchar(&pwstrDeviceId, GetDeviceId());
+		memcpy(pwstrDeviceId, m_pwstrDeviceId, iActualSize * sizeof(WCHAR_T));
 
 		wchar_t dataType[] = L"Штрихкод";
 		WCHAR_T* pwstrDataType = NULL;

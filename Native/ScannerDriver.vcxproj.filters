@@ -2,18 +2,12 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="ScannerDriver.cpp" />
-    <ClCompile Include="src\AddInNative.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ConversionWchar.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\AndroidScanner.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="jni\jnienv.cpp">
       <Filter>jni</Filter>
     </ClCompile>
+    <ClCompile Include="AddInNative.cpp" />
+    <ClCompile Include="AndroidScanner.cpp" />
+    <ClCompile Include="ConversionWchar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ScannerDriver.h" />
@@ -42,25 +36,16 @@
     <ClInclude Include="include\types.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="src\AddInNative.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ConversionWchar.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\AndroidScanner.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="jni\jnienv.h">
       <Filter>jni</Filter>
     </ClInclude>
+    <ClInclude Include="AddInNative.h" />
+    <ClInclude Include="AndroidScanner.h" />
+    <ClInclude Include="ConversionWchar.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="include">
       <UniqueIdentifier>{bec62d74-beba-4c42-a9ab-063a1931f2a3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{c2b39ea1-3c13-40fd-ae2b-5190f3f79428}</UniqueIdentifier>
     </Filter>
     <Filter Include="jni">
       <UniqueIdentifier>{222b340f-6e22-4f00-9007-9d744fbffdea}</UniqueIdentifier>
