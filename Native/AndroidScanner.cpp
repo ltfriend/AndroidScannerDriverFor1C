@@ -191,11 +191,14 @@ bool CAndroidScanner::SetParameter(wchar_t* name, wchar_t* value)
 
 void CAndroidScanner::Open()
 {
-	//TODO: Проверять параметры на NULL.
 	JNIEnv* jenv = getJniEnv();
 
-	jstring actionName = jenv->NewString(m_pwstrActionName, getLenShortWcharStr(m_pwstrActionName));
-	jstring extraData = jenv->NewString(m_pwstrExtraData, getLenShortWcharStr(m_pwstrExtraData));
+	jstring actionName = m_pwstrActionName != NULL ?
+		jenv->NewString(m_pwstrActionName, getLenShortWcharStr(m_pwstrActionName)) :
+		NULL;
+	jstring extraData = m_pwstrExtraData != NULL ?
+		jenv->NewString(m_pwstrExtraData, getLenShortWcharStr(m_pwstrExtraData)) :
+		NULL;
 
 	jenv->CallVoidMethod(obj, methodID_open, actionName, extraData);
 
