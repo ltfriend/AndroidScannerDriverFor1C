@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://v8.1c.ru/8.3/xcf/logform" xmlns:app="http://v8.1c.ru/8.2/managed-application/core" xmlns:cfg="http://v8.1c.ru/8.1/data/enterprise/current-config" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:dcsset="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:ent="http://v8.1c.ru/8.1/data/enterprise" xmlns:lf="http://v8.1c.ru/8.2/managed-application/logform" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xr="http://v8.1c.ru/8.3/xcf/readable" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.10">
+	<Title>
+		<v8:item>
+			<v8:lang>ru</v8:lang>
+			<v8:content>Сканер штрихкодов Android</v8:content>
+		</v8:item>
+	</Title>
+	<AutoTitle>false</AutoTitle>
+	<AutoCommandBar name="ФормаКоманднаяПанель" id="-1"/>
+	<Events>
+		<Event name="OnOpen">ПриОткрытии</Event>
+	</Events>
+	<ChildItems>
+		<CheckBoxField name="ИспользоватьСканерШтрихкодовAndroid" id="28">
+			<DataPath>НаборКонстант.ИспользоватьСканерШтрихкодовAndroid</DataPath>
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Использовать сканер штрихкодов</v8:content>
+				</v8:item>
+			</Title>
+			<TitleLocation>Left</TitleLocation>
+			<CheckBoxType>Auto</CheckBoxType>
+			<ContextMenu name="ИспользоватьСканерШтрихкодовAndroidКонтекстноеМеню" id="29"/>
+			<ExtendedTooltip name="ИспользоватьСканерШтрихкодовAndroidРасширеннаяПодсказка" id="30"/>
+			<Events>
+				<Event name="OnChange">ИспользоватьСканерШтрихкодовAndroidПриИзменении</Event>
+			</Events>
+		</CheckBoxField>
+		<Pages name="Страницы" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Страницы</v8:content>
+				</v8:item>
+			</Title>
+			<PagesRepresentation>None</PagesRepresentation>
+			<ExtendedTooltip name="СтраницыРасширеннаяПодсказка" id="2"/>
+			<ChildItems>
+				<Page name="ДрайверПолучениеИнформации" id="39">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Драйвер получение информации</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="ДрайверПолучениеИнформацииРасширеннаяПодсказка" id="40"/>
+					<ChildItems>
+						<LabelDecoration name="ДекорацияПолучениеИнформации" id="41">
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Получение информации о драйвере…</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ДекорацияПолучениеИнформацииКонтекстноеМеню" id="42"/>
+							<ExtendedTooltip name="ДекорацияПолучениеИнформацииРасширеннаяПодсказка" id="43"/>
+						</LabelDecoration>
+					</ChildItems>
+				</Page>
+				<Page name="УстройствоИспользуется" id="44">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Устройство используется</v8:content>
+						</v8:item>
+					</Title>
+					<ExtendedTooltip name="УстройствоИспользуетсяРасширеннаяПодсказка" id="45"/>
+					<ChildItems>
+						<LabelDecoration name="ДекорацияУстройствоИспользуется" id="25">
+							<TextColor>style:SpecialTextColor</TextColor>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Устройство используется. Перед выполнением операции устройство должно быть отключено.</v8:content>
+								</v8:item>
+							</Title>
+							<ContextMenu name="ДекорацияУстройствоИспользуетсяКонтекстноеМеню" id="26"/>
+							<ExtendedTooltip name="ДекорацияУстройствоИспользуетсяРасширеннаяПодсказка" id="27"/>
+						</LabelDecoration>
+					</ChildItems>
+				</Page>
+				<Page name="ДрайверНеУстановлен" id="8">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Драйвер не установлен</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Драйвер не установлен</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="ДрайверНеУстановленРасширеннаяПодсказка" id="9"/>
+					<ChildItems>
+						<LabelDecoration name="ДрайверНеУстановленТекст" id="10">
+							<AutoMaxWidth>false</AutoMaxWidth>
+							<TextColor>style:SpecialTextColor</TextColor>
+							<Title formatted="false">
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Драйвер устройства на текущем рабочем месте не установлен.</v8:content>
+								</v8:item>
+							</Title>
+							<GroupHorizontalAlign>Left</GroupHorizontalAlign>
+							<ContextMenu name="ДрайверНеУстановленТекстКонтекстноеМеню" id="11"/>
+							<ExtendedTooltip name="ДрайверНеУстановленТекстРасширеннаяПодсказка" id="12"/>
+						</LabelDecoration>
+						<Button name="УстановитьДрайвер" id="13">
+							<Type>UsualButton</Type>
+							<CommandName>Form.Command.УстановитьДрайвер</CommandName>
+							<ExtendedTooltip name="УстановитьДрайверРасширеннаяПодсказка" id="14"/>
+						</Button>
+					</ChildItems>
+				</Page>
+				<Page name="ДрайверУстановлен" id="15">
+					<Title>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Драйвер установлен</v8:content>
+						</v8:item>
+					</Title>
+					<ToolTip>
+						<v8:item>
+							<v8:lang>ru</v8:lang>
+							<v8:content>Драйвер установлен</v8:content>
+						</v8:item>
+					</ToolTip>
+					<ExtendedTooltip name="ДрайверУстановленРасширеннаяПодсказка" id="16"/>
+					<ChildItems>
+						<UsualGroup name="ГруппаПараметрыСканера" id="34">
+							<Title>
+								<v8:item>
+									<v8:lang>ru</v8:lang>
+									<v8:content>Параметры сканера</v8:content>
+								</v8:item>
+							</Title>
+							<Group>Vertical</Group>
+							<ExtendedTooltip name="ГруппаПараметрыСканераРасширеннаяПодсказка" id="35"/>
+							<ChildItems>
+								<InputField name="ActionName" id="31">
+									<DataPath>ActionName</DataPath>
+									<TitleLocation>Top</TitleLocation>
+									<ContextMenu name="ActionNameКонтекстноеМеню" id="32"/>
+									<ExtendedTooltip name="ActionNameРасширеннаяПодсказка" id="33"/>
+									<Events>
+										<Event name="OnChange">ActionNameПриИзменении</Event>
+									</Events>
+								</InputField>
+								<InputField name="ExtraData" id="36">
+									<DataPath>ExtraData</DataPath>
+									<TitleLocation>Top</TitleLocation>
+									<ContextMenu name="ExtraDataКонтекстноеМеню" id="37"/>
+									<ExtendedTooltip name="ExtraDataРасширеннаяПодсказка" id="38"/>
+									<Events>
+										<Event name="OnChange">ExtraDataПриИзменении</Event>
+									</Events>
+								</InputField>
+							</ChildItems>
+						</UsualGroup>
+					</ChildItems>
+				</Page>
+			</ChildItems>
+		</Pages>
+	</ChildItems>
+	<Attributes>
+		<Attribute name="НаборКонстант" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Набор констант</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>cfg:ConstantsSet</v8:Type>
+			</Type>
+			<MainAttribute>true</MainAttribute>
+			<UseAlways>
+				<Field>НаборКонстант.ДрайверСканераШтрихкодовAndroidУстановлен</Field>
+				<Field>НаборКонстант.ИспользоватьСканерШтрихкодовAndroid</Field>
+			</UseAlways>
+		</Attribute>
+		<Attribute name="ActionName" id="2">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Action name</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+		<Attribute name="ExtraData" id="3">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Extra data</v8:content>
+				</v8:item>
+			</Title>
+			<Type>
+				<v8:Type>xs:string</v8:Type>
+				<v8:StringQualifiers>
+					<v8:Length>0</v8:Length>
+					<v8:AllowedLength>Variable</v8:AllowedLength>
+				</v8:StringQualifiers>
+			</Type>
+		</Attribute>
+	</Attributes>
+	<Commands>
+		<Command name="УстановитьДрайвер" id="1">
+			<Title>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установить драйвер</v8:content>
+				</v8:item>
+			</Title>
+			<ToolTip>
+				<v8:item>
+					<v8:lang>ru</v8:lang>
+					<v8:content>Установить драйвер</v8:content>
+				</v8:item>
+			</ToolTip>
+			<Action>УстановитьДрайвер</Action>
+		</Command>
+	</Commands>
+</Form>
