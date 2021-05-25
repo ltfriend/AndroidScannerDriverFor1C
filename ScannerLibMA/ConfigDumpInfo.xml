@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ConfigDumpInfo xmlns="http://v8.1c.ru/8.3/xcf/dumpinfo" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" format="Hierarchical" version="2.10">
+<ConfigDumpInfo xmlns="http://v8.1c.ru/8.3/xcf/dumpinfo" xmlns:xen="http://v8.1c.ru/8.3/xcf/enums" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" format="Hierarchical" version="2.11">
 	<ConfigVersions>
 		<Metadata name="CommonCommand.НастройкаСканераШтрихкодовAndroid" id="d25279b9-e5b9-47e2-abc6-ad02ba74ab45" configVersion="9c18307039410a4b8b892670d58d194c00000000"/>
 		<Metadata name="CommonCommand.НастройкаСканераШтрихкодовAndroid.CommandModule" id="d25279b9-e5b9-47e2-abc6-ad02ba74ab45.2" configVersion="98b2f7c6f4cdb4449fbbf0deb41096f200000000"/>
@@ -9,8 +9,8 @@
 		<Metadata name="CommonModule.МенеджерСканераШтрихкодовAndroidВызовСервера.Module" id="00bcf25c-ce38-4895-aa91-09ff5d6b58f9.0" configVersion="dfcdddb60060e2478b4da0e46ecc21cd00000000"/>
 		<Metadata name="CommonModule.МенеджерСканераШтрихкодовAndroidКлиент" id="afa1d8ea-be34-4cab-b0f5-60e7377a1884" configVersion="1cc9aa9bb768d84b8f7c7e5471b886a700000000"/>
 		<Metadata name="CommonModule.МенеджерСканераШтрихкодовAndroidКлиент.Module" id="afa1d8ea-be34-4cab-b0f5-60e7377a1884.0" configVersion="d30d01d6b0c888489ccc17801ca549ea00000000"/>
-		<Metadata name="CommonTemplate.ДрайверСканераШтрихкодовAndroid" id="fdcba8c4-d68e-4d25-8df1-09e27424605b" configVersion="ec8865ccb3c32648a8cdacfbcc6c1b4e00000000"/>
-		<Metadata name="CommonTemplate.ДрайверСканераШтрихкодовAndroid.Template" id="fdcba8c4-d68e-4d25-8df1-09e27424605b.0" configVersion="de043c320f89f340b6b1d2ae0e56f81400000000"/>
+		<Metadata name="CommonTemplate.ДрайверСканераШтрихкодовAndroid" id="fdcba8c4-d68e-4d25-8df1-09e27424605b" configVersion="6a0827d387c74a4893badccaa9855fc000000000"/>
+		<Metadata name="CommonTemplate.ДрайверСканераШтрихкодовAndroid.Template" id="fdcba8c4-d68e-4d25-8df1-09e27424605b.0" configVersion="5473e3d9c6c784469456606962da933a00000000"/>
 		<Metadata name="Configuration.БиблиотекаСканеровAndroid" id="67ded7a3-4013-4900-847d-d224683fbbfd" configVersion="48749e60767ef5408ae8cbe6396c99b000000000"/>
 		<Metadata name="Configuration.БиблиотекаСканеровAndroid.ManagedApplicationModule" id="07173653-be11-4f37-af26-4dc8c02bc7ec.6" configVersion="0b5a6559681c8e418f19530f7e60bf7d00000000"/>
 		<Metadata name="Constant.ДрайверСканераШтрихкодовAndroidУстановлен" id="68cbb70b-fcf8-42d2-b4a4-760ad8fbac7e" configVersion="c3689d6d2e144842ba2748d5ad08ff3900000000"/>
