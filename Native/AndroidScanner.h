@@ -41,6 +41,7 @@ private:
 	IAddInDefBaseEx* cnn;
 	IMemoryManager* mem;
 
+	WCHAR_T* m_pwstrScanMode;
 	WCHAR_T* m_pwstrActionName;
 	WCHAR_T* m_pwstrExtraData;
 	WCHAR_T* m_pwstrDescription;

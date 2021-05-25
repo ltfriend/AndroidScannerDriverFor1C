@@ -41,18 +41,19 @@ CAndroidScanner::CAndroidScanner() :
 	obj(0),
 	cnn(0),
 	mem(0),
+	m_pwstrScanMode(0),
 	m_pwstrActionName(0),
 	m_pwstrExtraData(0),
 	m_pwstrLastErrorDesc(0),
 	isOpen(false)
 {
 	wchar_t description[] =
-		L"<?xml version=\"1.0\" encoding=\"UTF-8\"?><DriverDescription Name=\"Сканеры штрихкода Android\" Description=\"Сканеры штрихкода Android\" EquipmentType=\"СканерШтрихкода\" IntegrationComponent=\"false\" MainDriverInstalled=\"false\" DriverVersion=\"1.0.1.1\" IntegrationComponentVersion=\"1.0\" DownloadURL=\"\" LogIsEnabled=\"false\" LogPath = \"\"/>";
+		L"<?xml version=\"1.0\" encoding=\"UTF-8\"?><DriverDescription Name=\"Сканеры штрихкода Android\" Description=\"Сканеры штрихкода Android\" EquipmentType=\"СканерШтрихкода\" IntegrationComponent=\"false\" MainDriverInstalled=\"false\" DriverVersion=\"1.0.2.1\" IntegrationComponentVersion=\"1.0\" DownloadURL=\"\" LogIsEnabled=\"false\" LogPath = \"\"/>";
 	m_pwstrDescription = 0;
 	convToShortWchar(&m_pwstrDescription, description);
 
 	wchar_t parameters[] =
-		L"<Settings><Group Caption=\"Параметры подключения\"><Parameter Name=\"ActionName\" Caption=\"Action Name\" TypeValue=\"String\" DefaultValue=\"\"/><Parameter Name=\"ExtraData\" Caption=\"Extra Data\" TypeValue=\"String\" DefaultValue=\"\"/></Group></Settings>";
+		L"<Settings><Group Caption=\"Параметры подключения\"><Parameter Name=\"ScanMode\" Caption=\"Режим сканирования\" TypeValue=\"String\" DefaultValue=\"broadcast\"><ChoiceList><Item Value=\"broadcast\">broadcast event</Item><Item Value=\"clipboard\">clipboard</Item></ChoiceList></Parameter><Parameter Name=\"ActionName\" Caption=\"Action Name\" TypeValue=\"String\" DefaultValue=\"\"/><Parameter Name=\"ExtraData\" Caption=\"Barcode Data\" TypeValue=\"String\" DefaultValue=\"\"/></Group></Settings>";
 	m_pwstrParameters = 0;
 	convToShortWchar(&m_pwstrParameters, parameters);
 
@@ -70,6 +71,8 @@ CAndroidScanner::~CAndroidScanner()
 	if (isOpen)
 		Close();
 
+	if (m_pwstrScanMode)
+		delete m_pwstrScanMode;
 	if (m_pwstrActionName)
 		delete m_pwstrActionName;
 	if (m_pwstrExtraData)
@@ -124,7 +127,7 @@ void CAndroidScanner::SetIConnect(IAddInDefBaseEx* piConnect)
 				jenv->CallVoidMethod(obj, methodID_show);
 
 				// Methods
-				methodID_open = jenv->GetMethodID(cc, "start", "(Ljava/lang/String;Ljava/lang/String;)V");
+				methodID_open = jenv->GetMethodID(cc, "start", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 				methodID_close = jenv->GetMethodID(cc, "stop", "()V");
 			}
 		}
@@ -158,9 +161,18 @@ WCHAR_T* CAndroidScanner::GetParameters()
 
 bool CAndroidScanner::SetParameter(wchar_t* name, wchar_t* value)
 {
-	if (!name)
+	if (!name || !value)
 		return false;
 
+	if (wcscmp(name, L"ScanMode") == 0)
+	{
+		if (m_pwstrScanMode) {
+			delete m_pwstrScanMode;
+			m_pwstrScanMode = 0;
+		}
+
+		convToShortWchar(&m_pwstrScanMode, value);
+	}
 	if (wcscmp(name, L"ActionName") == 0)
 	{
 		if (m_pwstrActionName)
@@ -193,6 +205,9 @@ void CAndroidScanner::Open()
 {
 	JNIEnv* jenv = getJniEnv();
 
+	jstring scanMode = m_pwstrScanMode != NULL ?
+		jenv->NewString(m_pwstrScanMode, getLenShortWcharStr(m_pwstrScanMode)) :
+		NULL;
 	jstring actionName = m_pwstrActionName != NULL ?
 		jenv->NewString(m_pwstrActionName, getLenShortWcharStr(m_pwstrActionName)) :
 		NULL;
@@ -200,7 +215,7 @@ void CAndroidScanner::Open()
 		jenv->NewString(m_pwstrExtraData, getLenShortWcharStr(m_pwstrExtraData)) :
 		NULL;
 
-	jenv->CallVoidMethod(obj, methodID_open, actionName, extraData);
+	jenv->CallVoidMethod(obj, methodID_open, scanMode, actionName, extraData);
 
 	isOpen = true;
 }
