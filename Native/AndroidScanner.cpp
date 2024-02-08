@@ -217,6 +217,13 @@ void CAndroidScanner::Open()
 
 	jenv->CallVoidMethod(obj, methodID_open, scanMode, actionName, extraData);
 
+	if (scanMode)
+		jenv->DeleteLocalRef(scanMode);
+	if (actionName)
+		jenv->DeleteLocalRef(actionName);
+	if (extraData)
+		jenv->DeleteLocalRef(extraData);
+
 	isOpen = true;
 }
 
@@ -267,5 +274,9 @@ void CAndroidScanner::SendReceivedBarcode(std::wstring barcode)
 		convToShortWchar(&pwstrBarCode, barcode.c_str());
 
 		cnn->ExternalEvent(pwstrDeviceId, pwstrDataType, pwstrBarCode);
+
+		mem->FreeMemory((void**)&pwstrDeviceId);
+		mem->FreeMemory((void**)&pwstrDataType);
+		mem->FreeMemory((void**)&pwstrBarCode);
 	}
 }
